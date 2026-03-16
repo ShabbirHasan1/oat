@@ -1,7 +1,7 @@
 @layer components {
   [role="status"].skeleton {
     --_c: light-dark(
-      color-mix(in srgb, var(--muted) 30%, white),
+      color-mix(in srgb, var(--muted) 15%, white),
       color-mix(in srgb, var(--muted) 90%, var(--foreground))
     );
 
