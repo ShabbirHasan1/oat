@@ -106,6 +106,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // Highlight sidebar items.
   highlightNav();
   window.addEventListener('hashchange', highlightNav);
+
+  // Highlight sidebar link based on scroll position in demo sections.
+  const sections = document.querySelectorAll('.demo-section');
+  const side = document.querySelector('aside[data-sidebar]');
+  if (sections.length && side) {
+    const ob = new IntersectionObserver(items => {
+      const ok = items.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (!ok) return;
+
+      side.querySelector('[aria-current]')?.removeAttribute('aria-current');
+      side.querySelector(`a[href$="#${ok.target.id}"]`)?.setAttribute('aria-current', 'page');
+    }, { rootMargin: '0px 0px -60% 0px' });
+
+    // Attach a scroll observer to all sections.
+    sections.forEach(s => ob.observe(s));
+  }
 });
 
 
