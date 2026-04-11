@@ -28,7 +28,7 @@
     border-radius: var(--radius-medium);
   }
 
-  /* Arrow */
+  /* Arrow (default: top) */
   [data-tooltip]::before {
     content: '';
     inset-block-end: calc(100% - 5px);
@@ -37,11 +37,66 @@
     border-top-color: var(--foreground);
   }
 
+  /* Bottom */
+  [data-tooltip][data-tooltip-placement="bottom"]::after {
+    inset-block-start: calc(100% + 10px);
+    inset-block-end: auto;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  [data-tooltip][data-tooltip-placement="bottom"]::before {
+    inset-block-start: calc(100% - 5px);
+    inset-block-end: auto;
+    transform: translateX(-50%) translateY(-4px);
+    border-color: transparent;
+    border-bottom-color: var(--foreground);
+  }
+
+  /* Left + Right */
+  [data-tooltip]:is([data-tooltip-placement="left"], [data-tooltip-placement="right"])::before,
+  [data-tooltip]:is([data-tooltip-placement="left"], [data-tooltip-placement="right"])::after {
+    inset-block-start: 50%;
+    inset-block-end: auto;
+  }
+  [data-tooltip]:is([data-tooltip-placement="left"], [data-tooltip-placement="right"])::before {
+    border-color: transparent;
+  }
+
+  /* Left */
+  [data-tooltip][data-tooltip-placement="left"]::before,
+  [data-tooltip][data-tooltip-placement="left"]::after {
+    inset-inline-start: auto;
+    transform: translateX(4px) translateY(-50%);
+  }
+  [data-tooltip][data-tooltip-placement="left"]::after {
+    inset-inline-end: calc(100% + 10px);
+  }
+  [data-tooltip][data-tooltip-placement="left"]::before {
+    inset-inline-end: calc(100% - 5px);
+    border-inline-start-color: var(--foreground);
+  }
+
+  /* Right */
+  [data-tooltip][data-tooltip-placement="right"]::before,
+  [data-tooltip][data-tooltip-placement="right"]::after {
+    transform: translateX(-4px) translateY(-50%);
+  }
+  [data-tooltip][data-tooltip-placement="right"]::after {
+    inset-inline-start: calc(100% + 10px);
+  }
+  [data-tooltip][data-tooltip-placement="right"]::before {
+    inset-inline-start: calc(100% - 5px);
+    border-inline-end-color: var(--foreground);
+  }
+
   [data-tooltip]:is(:hover, :focus-visible)::before,
   [data-tooltip]:is(:hover, :focus-visible)::after {
     opacity: 1;
     visibility: visible;
     transition-delay: 700ms;
     transform: translateX(-50%) translateY(0);
+  }
+  [data-tooltip]:is([data-tooltip-placement="left"], [data-tooltip-placement="right"]):is(:hover, :focus-visible)::before,
+  [data-tooltip]:is([data-tooltip-placement="left"], [data-tooltip-placement="right"]):is(:hover, :focus-visible)::after {
+    transform: translateX(0) translateY(-50%);
   }
 }
